@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .technical-grid {
+        background-size: 40px 40px;
+        background-image:
+            linear-gradient(to right, rgba(204, 255, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(204, 255, 0, 0.03) 1px, transparent 1px);
+    }
+}
+
+@layer components {
+    .btn-monolith {
+        @apply transition-all duration-100 ease-in-out border-b-[2px] border-black/40 active:translate-y-[2px] active:border-b-0;
+    }
+
+    .nav-link {
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -4px;
+        left: 0;
+        @apply bg-primary;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+}
+
+body {
+    @apply bg-background-dark text-[#e2e8f0];
+}
