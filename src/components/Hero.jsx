@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from './ui/Button';
 import TechnicalGrid from './ui/TechnicalGrid';
 
@@ -30,10 +31,10 @@ const Hero = () => {
                         We do not gamble. We execute. A faith-guided approach to high-probability trading where capital is sacred and process is king.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <Button variant="primary" icon="arrow_forward">
+                        <Button to="/apply" variant="primary" icon="arrow_forward">
                             Initialize Application
                         </Button>
-                        <Button variant="outline">
+                        <Button to="/mentorship" variant="outline">
                             View The Syllabus
                         </Button>
                     </div>

@@ -2,6 +2,9 @@ import React from 'react';
 import Section from './ui/Section';
 import TechnicalGrid from './ui/TechnicalGrid';
 import Button from './ui/Button';
+import ListItem from './ui/ListItem';
+import Heading from './ui/Heading';
+import Text from './ui/Text';
 
 const rules = [
     {
@@ -26,23 +29,6 @@ const rules = [
     }
 ];
 
-const RuleItem = ({ id, title, description }) => (
-    <div className="flex items-start md:items-center p-6 gap-6 hover:bg-white/5 transition-colors group">
-        <div className="flex-shrink-0">
-            <div className="w-8 h-8 rounded-sm border-2 border-gray-600 group-hover:border-primary flex items-center justify-center">
-                <span className="material-icons text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity">check</span>
-            </div>
-        </div>
-        <div className="flex-grow">
-            <h4 className="text-white font-mono font-bold uppercase tracking-wide text-sm md:text-base">{title}</h4>
-            <p className="text-gray-500 text-sm mt-1">{description}</p>
-        </div>
-        <div className="hidden md:block text-right font-mono text-xs text-gray-600 group-hover:text-primary transition-colors">
-            Rule #{id}
-        </div>
-    </div>
-);
-
 const Covenant = () => {
     return (
         <Section className="relative overflow-hidden">
@@ -50,13 +36,23 @@ const Covenant = () => {
             <div className="max-w-4xl mx-auto relative z-10">
                 <div className="text-center mb-16">
                     <span className="font-mono text-primary text-xs uppercase tracking-[0.2em] mb-2 block">The Covenant</span>
-                    <h2 className="font-display font-bold text-3xl md:text-4xl text-white">Non-Negotiable Rules</h2>
-                    <p className="mt-4 text-gray-400 max-w-lg mx-auto">Trading is not a game. It is a profession requiring absolute adherence to law. Break the rules, break your account.</p>
+                    <Heading level={2}>Non-Negotiable Rules</Heading>
+                    <Text className="mt-4 max-w-lg mx-auto">Trading is not a game. It is a profession requiring absolute adherence to law. Break the rules, break your account.</Text>
                 </div>
                 <div className="bg-surface-dark border border-border-dark p-1 rounded-sm shadow-2xl">
                     <div className="divide-y divide-border-dark">
                         {rules.map((rule) => (
-                            <RuleItem key={rule.id} {...rule} />
+                            <ListItem
+                                key={rule.id}
+                                title={rule.title}
+                                description={rule.description}
+                                badge={`Rule #${rule.id}`}
+                                icon={
+                                    <div className="w-8 h-8 rounded-sm border-2 border-gray-600 group-hover:border-primary flex items-center justify-center">
+                                        <span className="material-icons text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity">check</span>
+                                    </div>
+                                }
+                            />
                         ))}
                     </div>
                 </div>

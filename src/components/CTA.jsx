@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Section from './ui/Section';
 import Container from './ui/Container';
 import Button from './ui/Button';
@@ -11,9 +12,11 @@ const CTA = () => {
                 <h2 className="font-display font-extrabold text-4xl md:text-5xl text-white mb-6">Ready to Standardize Your Edge?</h2>
                 <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">The doors are open for the disciplined few. Secure your place in the next cohort and begin the journey to mastery.</p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <Button variant="primary" className="px-10 py-4 text-base shadow-xl shadow-primary/20">
-                        Apply for Mentorship
-                    </Button>
+                    <Link to="/apply">
+                        <Button variant="primary" className="px-10 py-4 text-base shadow-xl shadow-primary/20">
+                            Apply for Mentorship
+                        </Button>
+                    </Link>
                 </div>
                 <p className="mt-6 font-mono text-xs text-gray-600 uppercase">Limited Spots Available • Application Required</p>
             </Container>

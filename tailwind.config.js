@@ -17,6 +17,9 @@ export default {
         "display": ["Manrope", "sans-serif"],
         "mono": ["JetBrains Mono", "monospace"],
       },
+      spacing: {
+        'section-y': '5rem', // 80px
+      },
       borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
     },
   },

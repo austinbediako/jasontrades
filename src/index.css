@@ -13,11 +13,12 @@
 
 @layer components {
     .btn-monolith {
-        @apply transition-all duration-100 ease-in-out border-b-[2px] border-black/40 active:translate-y-[2px] active:border-b-0;
+        @apply transition-all duration-100 ease-in-out border-b-[2px] border-black/40 active:translate-y-[2px] active:border-b-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm;
     }
 
     .nav-link {
         position: relative;
+        @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1;
     }
 
     .nav-link::after {

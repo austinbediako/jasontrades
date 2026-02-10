@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Section from './ui/Section';
 import Container from './ui/Container';
+import Card from './ui/Card';
+import Heading from './ui/Heading';
+import Text from './ui/Text';
 
 const reviews = [
     {
@@ -30,38 +34,38 @@ const reviews = [
 ];
 
 const ReviewItem = ({ stars, date, text, initials, name, role }) => (
-    <div className="bg-background-dark border border-border-dark p-8 rounded-sm hover:border-primary/50 transition-colors">
+    <Card hover className="p-8">
         <div className="flex justify-between items-start mb-6">
             <div className="flex gap-1 text-primary text-xs">
                 {[...Array(stars)].map((_, i) => (
                     <span key={i} className="material-icons text-sm">star</span>
                 ))}
             </div>
-            <span className="font-mono text-xs text-text-muted">{date}</span>
+            <Text variant="muted">{date}</Text>
         </div>
-        <p className="text-gray-300 text-sm leading-relaxed mb-6">"{text}"</p>
+        <Text variant="small" className="text-gray-300 mb-6">"{text}"</Text>
         <div className="flex items-center gap-3 border-t border-border-dark pt-4">
             <div className="w-8 h-8 bg-surface-dark border border-border-dark rounded-full flex items-center justify-center text-xs font-mono font-bold text-primary">{initials}</div>
             <div>
-                <p className="text-white text-sm font-bold">{name}</p>
-                <p className="text-xs text-text-muted font-mono">{role}</p>
+                <Heading level={5} className="text-white">{name}</Heading>
+                <Text variant="muted">{role}</Text>
             </div>
         </div>
-    </div>
+    </Card>
 );
 
 const Witnesses = () => {
     return (
-        <Section dark={false}>
+        <Section variant="surface">
             <Container>
                 <div className="flex justify-between items-end mb-12 border-b border-border-dark pb-4">
                     <div>
-                        <h2 className="font-display font-bold text-3xl text-white">Witnesses</h2>
-                        <p className="text-gray-400 text-sm mt-2">Real results from disciplined execution.</p>
+                        <Heading level={2} className="mb-2">Witnesses</Heading>
+                        <Text variant="small">Real results from disciplined execution.</Text>
                     </div>
-                    <a className="hidden md:flex items-center gap-2 text-primary text-sm font-mono uppercase tracking-wider hover:text-white transition-colors" href="#">
+                    <Link className="hidden md:flex items-center gap-2 text-primary text-sm font-mono uppercase tracking-wider hover:text-white transition-colors" to="/testimonies">
                         View All Reviews <span className="material-icons text-sm">arrow_right_alt</span>
-                    </a>
+                    </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {reviews.map((review, index) => (

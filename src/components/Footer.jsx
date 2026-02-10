@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Container from './ui/Container';
 
 const Footer = () => {
@@ -20,29 +21,29 @@ const Footer = () => {
                     <div>
                         <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6 font-display">Platform</h4>
                         <ul className="space-y-4 font-mono text-xs text-gray-400">
-                            <li><a className="hover:text-primary transition-colors" href="#">Course Curriculum</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Trading Journal</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Community Discord</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Resources</a></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/mentorship">Course Curriculum</Link></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/journal">Trading Journal</Link></li>
+                            <li><a className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" href="https://discord.com" target="_blank" rel="noopener noreferrer">Community Discord</a></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/resources">Resources</Link></li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6 font-display">Company</h4>
                         <ul className="space-y-4 font-mono text-xs text-gray-400">
-                            <li><a className="hover:text-primary transition-colors" href="#">About Us</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Statement of Faith</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Contact</a></li>
-                            <li><a className="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/about">About Us</Link></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/faith">Statement of Faith</Link></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/contact">Contact</Link></li>
+                            <li><Link className="hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1" to="/privacy">Privacy Policy</Link></li>
                         </ul>
                     </div>
                     <div>
                         <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6 font-display">Subscribe</h4>
-                        <div className="flex">
-                            <input className="bg-surface-dark border border-border-dark text-white text-xs p-3 w-full focus:outline-none focus:border-primary font-mono placeholder-gray-600 rounded-l-sm" placeholder="ENTER EMAIL" type="email"/>
-                            <button className="bg-primary text-black px-4 rounded-r-sm hover:bg-primary-dark transition-colors">
+                        <form className="flex" onSubmit={(e) => e.preventDefault()}>
+                            <input className="bg-surface-dark border border-border-dark text-white text-xs p-3 w-full focus:outline-none focus:border-primary font-mono placeholder-gray-600 rounded-l-sm" placeholder="ENTER EMAIL" type="email" aria-label="Email Address"/>
+                            <button type="submit" className="bg-primary text-black px-4 rounded-r-sm hover:bg-primary-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white" aria-label="Subscribe">
                                 <span className="material-icons text-sm">arrow_forward</span>
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div className="border-t border-border-dark pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
