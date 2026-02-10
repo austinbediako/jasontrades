@@ -25,18 +25,19 @@ import Manifesto from './pages/Manifesto';
 import Resources from './pages/Resources';
 import Journal from './pages/Journal';
 import StatementOfFaith from './pages/StatementOfFaith';
+import Dashboard from './pages/Dashboard';
 
 function Home() {
-    return (
-        <>
-            <Hero />
-            <Features />
-            <Covenant />
-            <Stats />
-            <Witnesses />
-            <CTA />
-        </>
-    );
+  return (
+    <>
+      <Hero />
+      <Features />
+      <Covenant />
+      <Stats />
+      <Witnesses />
+      <CTA />
+    </>
+  );
 }
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
         <Route path="/resources" element={<Layout><Resources /></Layout>} />
         <Route path="/journal" element={<Layout><Journal /></Layout>} />
         <Route path="/faith" element={<Layout><StatementOfFaith /></Layout>} />
+        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
       </Routes>
     </div>
   );
