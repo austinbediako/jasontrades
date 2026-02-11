@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from './ui/Button';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, logout } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -27,7 +29,15 @@ const Navbar = () => {
                         <Link className="nav-link text-gray-400 hover:text-primary transition-colors" to="/manifesto">Manifesto</Link>
                         <Link className="nav-link text-gray-400 hover:text-primary transition-colors" to="/protocol">The Protocol</Link>
                         <Link className="nav-link text-gray-400 hover:text-primary transition-colors" to="/testimonies">Testimonies</Link>
-                        <Button to="/login" variant="outline" size="sm">Member Access</Button>
+
+                        {user ? (
+                            <div className="flex items-center gap-6 ml-4">
+                                <Link className="nav-link text-gray-400 hover:text-primary transition-colors" to="/dashboard">Dashboard</Link>
+                                <button onClick={logout} className="text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1">LOGOUT</button>
+                            </div>
+                        ) : (
+                            <Button to="/login" variant="outline" size="sm">Member Access</Button>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -70,7 +80,19 @@ const Navbar = () => {
                             Testimonies
                         </Link>
                         <div className="pt-4 w-full px-8">
-                            <Button to="/login" variant="outline" className="w-full justify-center" onClick={() => setIsMenuOpen(false)}>Member Access</Button>
+                            {user ? (
+                                <div className="space-y-4">
+                                    <Button to="/dashboard" variant="primary" className="w-full justify-center" onClick={() => setIsMenuOpen(false)}>Dashboard</Button>
+                                    <button
+                                        onClick={() => { logout(); setIsMenuOpen(false); }}
+                                        className="block w-full text-center py-3 text-gray-400 hover:text-white uppercase tracking-wider font-mono text-sm border border-border-dark rounded-sm hover:border-white transition-colors"
+                                    >
+                                        Logout
+                                    </button>
+                                </div>
+                            ) : (
+                                <Button to="/login" variant="outline" className="w-full justify-center" onClick={() => setIsMenuOpen(false)}>Member Access</Button>
+                            )}
                         </div>
                     </div>
                 </div>

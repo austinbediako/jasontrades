@@ -1,16 +1,19 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+=======
+import React, { useState } from 'react';
+>>>>>>> f824590fd4674c779ae5075c94a38746801a0e05
 import Section from '../components/ui/Section';
 import Container from '../components/ui/Container';
-import Heading from '../components/ui/Heading';
-import Text from '../components/ui/Text';
-import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import TechnicalGrid from '../components/ui/TechnicalGrid';
+import Button from '../components/ui/Button';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+<<<<<<< HEAD
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
@@ -48,28 +51,41 @@ const Login = () => {
             addToast(isLogin ? "Welcome back, trader." : "Welcome to the covenant.", 'success');
         } else {
             addToast(error || "Authentication failed.", 'error');
+=======
+    const { login } = useAuth();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+
+        try {
+            const result = await login(email, password);
+            if (!result.success) {
+                setError(result.error);
+                setLoading(false);
+            }
+        } catch (err) {
+            setError('Failed to login');
+            setLoading(false);
+>>>>>>> f824590fd4674c779ae5075c94a38746801a0e05
         }
     };
 
     return (
-        <Section className="relative overflow-hidden pt-32 pb-20 min-h-screen flex items-center">
-            <TechnicalGrid />
-            <Container className="relative z-10 max-w-md mx-auto">
-                <div className="text-center mb-10">
-                    <span className="font-mono text-primary text-xs uppercase tracking-[0.2em] mb-2 block">
-                        {isLogin ? 'Member Access' : 'Create Account'}
-                    </span>
-                    <Heading level={1} className="mb-3 text-3xl">
-                        {isLogin ? 'Welcome Back' : 'Join The Covenant'}
-                    </Heading>
-                    <Text variant="small">
-                        {isLogin
-                            ? 'Access your curriculum, journal, and community dashboard.'
-                            : 'Create your account to begin the mentorship experience.'
-                        }
-                    </Text>
-                </div>
+        <Section className="min-h-[70vh] flex items-center justify-center">
+            <Container className="max-w-md w-full">
+                <div className="bg-surface-dark border border-border-dark p-8 rounded-sm shadow-2xl">
+                    <div className="text-center mb-8">
+                        <span className="font-mono text-primary text-xs uppercase tracking-[0.2em] mb-2 block">Member Access</span>
+                        <h2 className="font-display font-bold text-2xl text-white">Login to Portal</h2>
+                    </div>
 
+<<<<<<< HEAD
                 <div className="bg-surface-dark border border-border-dark rounded-sm p-8 relative">
                     {loading && (
                         <div className="absolute inset-0 bg-surface-dark/80 backdrop-blur-sm z-20 flex items-center justify-center">
@@ -112,18 +128,36 @@ const Login = () => {
                             placeholder="••••••••"
                             required
                         />
+=======
+                    {error && (
+                        <div className="bg-red-500/10 border border-red-500/30 text-red-500 px-4 py-3 rounded-sm mb-6 text-sm font-mono text-center">
+                            {error}
+                        </div>
+                    )}
+>>>>>>> f824590fd4674c779ae5075c94a38746801a0e05
 
-                        {isLogin && (
-                            <div className="flex justify-end">
-                                <button type="button" className="font-mono text-xs text-gray-500 hover:text-primary transition-colors">
-                                    Forgot password?
-                                </button>
-                            </div>
-                        )}
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <Input
+                            label="Email Address"
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <Input
+                            label="Password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
 
                         <Button
                             type="submit"
                             variant="primary"
+<<<<<<< HEAD
                             className="w-full"
                             icon={isLogin ? 'login' : 'person_add'}
                             disabled={loading}
@@ -145,16 +179,27 @@ const Login = () => {
                                 {isLogin ? 'Apply Here' : 'Sign In'}
                             </button>
                         </Text>
-                    </div>
-                </div>
+=======
+                            className="w-full justify-center"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <span className="flex items-center gap-2">
+                                    <span className="w-3 h-3 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
+                                    Authenticating...
+                                </span>
+                            ) : (
+                                'Sign In'
+                            )}
+                        </Button>
+                    </form>
 
-                <div className="mt-8 text-center">
-                    <Text variant="small" className="text-gray-600">
-                        By signing in, you agree to our{' '}
-                        <a href="/privacy" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a>
-                        {' '}and{' '}
-                        <a href="/protocol" className="text-gray-400 hover:text-primary transition-colors">Community Protocol</a>.
-                    </Text>
+                    <div className="mt-6 text-center">
+                        <p className="text-xs text-gray-500 font-mono">
+                            Don't have an account? <a href="/apply" className="text-primary hover:underline">Apply Here</a>
+                        </p>
+>>>>>>> f824590fd4674c779ae5075c94a38746801a0e05
+                    </div>
                 </div>
             </Container>
         </Section>
