@@ -31,6 +31,7 @@ import Resources from './pages/Resources';
 import Journal from './pages/Journal';
 import StatementOfFaith from './pages/StatementOfFaith';
 import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
 
 function Home() {
   return (
