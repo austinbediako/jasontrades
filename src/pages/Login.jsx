@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import Section from '../components/ui/Section';
 import Container from '../components/ui/Container';
 import Heading from '../components/ui/Heading';
@@ -10,14 +12,51 @@ import TechnicalGrid from '../components/ui/TechnicalGrid';
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
+    const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+    const { login, signup, loading, error, isAuthenticated } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleSubmit = (e) => {
+    // Redirect if already authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            const from = location.state?.from?.pathname || '/dashboard';
+            navigate(from, { replace: true });
+        }
+    }, [isAuthenticated, navigate, location]);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate login delay
-        setTimeout(() => {
-            navigate('/dashboard');
-        }, 500);
+
+        // Permissive Login: Ensure at least email is provided if empty
+        if (!formData.email) {
+            addToast('Please enter an email address', 'error');
+            return;
+        }
+
+        try {
+            let success;
+            if (isLogin) {
+                // Pass whatever is in password, or a dummy if empty, since user wants "type anything"
+                success = await login(formData.email, formData.password || 'placeholder');
+            } else {
+                success = await signup(formData.name || 'New Member', formData.email, formData.password || 'placeholder');
+            }
+
+            if (success) {
+                addToast(isLogin ? 'Welcome back, Trader.' : 'Welcome to the Covenant.', 'success');
+                // Navigation handled by useEffect
+            } else {
+                addToast(error || 'Authentication failed', 'error');
+            }
+        } catch (err) {
+            addToast('An unexpected error occurred', 'error');
+        }
     };
 
     return (
@@ -42,10 +81,31 @@ const Login = () => {
                 <div className="bg-surface-dark border border-border-dark rounded-sm p-8">
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {!isLogin && (
-                            <Input label="Full Name" placeholder="Jason Trades" required />
+                            <Input
+                                label="Full Name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Jason Trades"
+                            />
                         )}
-                        <Input label="Email Address" type="email" placeholder="jason@example.com" required />
-                        <Input label="Password" type="password" placeholder="••••••••" required />
+                        <Input
+                            label="Email Address"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="jason@example.com"
+                            required
+                        />
+                        <Input
+                            label="Password"
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="••••••••"
+                        />
 
                         {isLogin && (
                             <div className="flex justify-end">
@@ -55,8 +115,14 @@ const Login = () => {
                             </div>
                         )}
 
-                        <Button type="submit" variant="primary" className="w-full" icon={isLogin ? 'login' : 'person_add'}>
-                            {isLogin ? 'Sign In' : 'Create Account'}
+                        <Button
+                            type="submit"
+                            variant="primary"
+                            className="w-full"
+                            icon={isLogin ? 'login' : 'person_add'}
+                            disabled={loading}
+                        >
+                            {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
                         </Button>
                     </form>
 
